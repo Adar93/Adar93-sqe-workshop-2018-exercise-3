@@ -240,7 +240,7 @@ function parseCond(cond,values,Table){
 }
 
 function parseIf(Body,values,Table){
-    if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+    Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     newVertex = true;
     let cond = Functions[Body.test.type](Body.test,values,Table);
     counter++;
