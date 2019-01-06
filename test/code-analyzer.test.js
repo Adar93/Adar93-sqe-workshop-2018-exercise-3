@@ -117,3 +117,24 @@ describe('func parser', () => {
         );
     });
 });
+
+describe('While parser', () => {
+    it('is parsing an a while loop correctly', () => {
+        assert.deepEqual(
+            JSON.stringify(addEdges(tableCreation('function foo(x, y, z){\n' +
+                '   let a = x + 1;\n' +
+                '   let b = [ 0, 1 ];\n' +
+                '   let c;\n' +
+                '   \n' +
+                '   while (a < z) {\n' +
+                '       a++;\n' +
+                'c=-3;\n' +
+                'b[0]=1;\n' +
+                '   }\n' +
+                '   \n' +
+                '   return z;\n' +
+                '}\n','1,[0,1],3'))),
+            '[{"Vertex":"op1","Code":"op1=>operation: [1]\\na = x + 1","Type":"VariableDeclaration"},{"Vertex":"op1","Code":"b = [\\n    0,\\n    1\\n]","Type":"VariableDeclaration"},{"Vertex":"op1","Code":"c | in","Type":"VariableDeclaration"},{"Vertex":"e2","Code":"e2=>end: null | in","Type":"WhileStatement"},{"Vertex":"cond2","Code":"cond2=>condition: [2]\\na < z | in","Type":"WhileStatement"},{"Vertex":"op3","Code":"op3=>operation: [3]\\na++","Type":"UpdateExpression"},{"Vertex":"op3","Code":"c = -3","Type":"AssignmentExpression"},{"Vertex":"op3","Code":"b[0] = 1 | in","Type":"AssignmentExpression"},{"Vertex":"op4","Code":"op4=>operation: [4]\\nreturn z | in","Type":"ReturnStatement"},{"Vertex":null,"Code":"op1->e2","Type":null},{"Vertex":null,"Code":"e2->cond2","Type":null},{"Vertex":null,"Code":"cond2(yes)->op3","Type":null},{"Vertex":null,"Code":"cond2(no)->op4","Type":null},{"Vertex":null,"Code":"op3->e2","Type":null}]'
+        );
+    });
+});

@@ -27,7 +27,7 @@ const Functions = {
     'Literal' : parseLiteral,
     'BinaryExpression' : parseBinExpr,
     'LogicalExpression' : parseBinExpr,
-    'MemberExpression' : parseMember,
+    //'MemberExpression' : parseMember,
     'UnaryExpression' : parseUnary,
     'UpdateExpression': parseUpdate
 };
@@ -94,7 +94,7 @@ function parseUpdate(Exp,values,Table){
     return val;
 }*/
 
-function parseMember(Exp,values,Table) {
+/*function parseMember(Exp,values,Table) {
     let arr, i, val;
     arr = escodegen.generate(Exp.object);
     i = Functions[Exp.property.type](Exp.property, values,Table);
@@ -108,11 +108,11 @@ function parseMember(Exp,values,Table) {
         }
         else
             val = arr + '[' + i + ']';
-    }*/
+    }
     else
         val = arr + '[' + i + ']';
     return val;
-}
+}*/
 
 function copyDictionaries(fromDict, toDict){
     Object.keys(fromDict).forEach(function(key) {
@@ -140,11 +140,11 @@ function updateValInArr(Exp,val2Show,val2Save,values,Table) {
     //if(arr in values) {
     values[arr][i] = val2Save;
     let code = name + ' = ' + val2Show;
-    if(newVertex) {
+    /*if(newVertex) {
         counter++;
         code = 'op' + counter + '=>operation: '+'['+counter+']\n'+ code;
         newVertex = false;
-    }
+    }*/
     let ver = 'op' + counter;
     let type = 'AssignmentExpression';
     let row = new CodeRow(ver, code, type);
@@ -307,7 +307,7 @@ function parseFunc(Body,values,Table){
 }
 
 function parseWhile(Body,values,Table){
-    if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+    Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     newVertex = true;
     counter++;
     let whileCounter = counter;
@@ -326,7 +326,7 @@ function parseWhile(Body,values,Table){
 }
 
 function parseRet(Body,values,Table){
-    if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+    Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     newVertex = true;
     let val = Functions[Body.argument.type](Body.argument,values,Table);
     counter++;
@@ -346,7 +346,7 @@ function loopBody(parsedCode){
     Table = [];
     for (let i = 0; i<parsedCode.body.length; i++){
         Functions[parsedCode.body[i].type](parsedCode.body[i],values,Table);
-        if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+        Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     }
     return Table;
 }
