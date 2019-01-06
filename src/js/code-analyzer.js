@@ -361,9 +361,9 @@ function tableCreation(codeToParse, inVec){
     let parsedCode = parseCode(codeToParse);
     inputVector = parseCode(inVec);
     if (inputVector.body[0]!=null){
-        if(inputVector.body[0].expression.type === 'SequenceExpression')
-            inputVector = inputVector.body[0].expression.expressions;
-        else inputVector = [inputVector.body[0].expression];
+        //if(inputVector.body[0].expression.type === 'SequenceExpression')
+        inputVector = inputVector.body[0].expression.expressions;
+        //else inputVector = [inputVector.body[0].expression];
     }
     else (inputVector = null);
     return loopBody(parsedCode);
