@@ -67,6 +67,25 @@ describe('While parser', () => {
                 '        c = c + 5;\n' +
                 '    } else if (b < z * 2) {\n' +
                 '        c = c + x + 5;\n' +
+                '    }' + '    \n' +
+                '    return c;\n' + '}\n','1,2,3'))),
+            '[{"Vertex":"op1","Code":"op1=>operation: [1]\\na = x + 1","Type":"VariableDeclaration"},{"Vertex":"op1","Code":"b = a + y","Type":"VariableDeclaration"},{"Vertex":"op1","Code":"c = 0 | in","Type":"VariableDeclaration"},{"Vertex":"cond2","Code":"cond2=>condition: [2]\\nb < z | in","Type":"IfStatement"},{"Vertex":"op3","Code":"op3=>operation: [3]\\nc = c + 5","Type":"AssignmentExpression"},{"Vertex":"cond4","Code":"cond4=>condition: [4]\\nb < z * 2 | in","Type":"ElseIfStatement"},{"Vertex":"op5","Code":"op5=>operation: [5]\\nc = c + x + 5 | in","Type":"AssignmentExpression"},{"Vertex":"e2","Code":"e2=>end: null | in","Type":"CloseIf"},{"Vertex":"op6","Code":"op6=>operation: [6]\\nreturn c | in","Type":"ReturnStatement"},{"Vertex":null,"Code":"op1->cond2","Type":null},{"Vertex":null,"Code":"cond2(yes)->op3","Type":null},{"Vertex":null,"Code":"cond2(no)->cond4","Type":null},{"Vertex":null,"Code":"op3->e2","Type":null},{"Vertex":null,"Code":"cond4(yes)->op5","Type":null},{"Vertex":null,"Code":"cond4(no)->e2","Type":null},{"Vertex":null,"Code":"op5->e2","Type":null},{"Vertex":null,"Code":"e2->op6","Type":null}]'
+        );
+    });
+});
+
+describe('While parser', () => {
+    it('is parsing a complex if statement correctly', () => {
+        assert.deepEqual(
+            JSON.stringify(addEdges(tableCreation('function foo(x, y, z){\n' +
+                '    let a = x + 1;\n' +
+                '    let b = a + y;\n' +
+                '    let c = 0;\n' +
+                '    \n' +
+                '    if (b < z) {\n' +
+                '        c = c + 5;\n' +
+                '    } else if (b < z * 2) {\n' +
+                '        c = c + x + 5;\n' +
                 '    } else {\n' +
                 '        c = c + z + 5;\n' +
                 '    }\n' + '    \n' +

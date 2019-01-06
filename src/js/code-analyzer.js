@@ -255,13 +255,13 @@ function parseIf(Body,values,Table){
     if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     if (Body.alternate != null) {
         parseAlternate(Body.alternate,values,Table);
-        if (!toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in'; toColor = true;
+        //if (!toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in'; toColor = true;
     }
     closeIf(ifCounter,Table);
 }
 
 function parseElseIf(Body,values,Table){
-    if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+    //if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     newVertex = true;
     let cond = Functions[Body.test.type](Body.test,values,Table);
     counter++;
@@ -272,10 +272,10 @@ function parseElseIf(Body,values,Table){
     let row = new CodeRow(ver, code, type);
     Table.push(row);
     Functions[Body.consequent.type](Body.consequent,values,Table);
-    if (toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
+    /*if (toColor) */Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in';
     if (Body.alternate != null){
         parseAlternate(Body.alternate,values,Table);
-        if (!toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in'; toColor = true;
+        //if (!toColor) Table[Table.length-1].Code = Table[Table.length-1].Code + ' | in'; toColor = true;
     }
 }
 
@@ -390,9 +390,9 @@ function addIfEdges(tab,i) {
     Table = Table.concat(addCodeOnly(tab[i].Vertex + '(yes)->' + tab[i + 1].Vertex));
     Table = Table.concat(addCodeOnly(tab[i].Vertex + '(no)->' + getNextVertex(tab, i + 1)));
     if (tab[i].Type !== 'WhileStatement') {
-        if (tab[i + 1].Vertex.substr(0, 2) === 'op') {
-            Table = Table.concat(addCodeOnly(tab[i + 1].Vertex + '->e' + isInIf));
-        }
+        //if (tab[i + 1].Vertex.substr(0, 2) === 'op') {
+        Table = Table.concat(addCodeOnly(tab[i + 1].Vertex + '->e' + isInIf));
+        //}
         if (getNextVertex(tab, i + 1).substr(0, 2) === 'op') {
             Table = Table.concat(addCodeOnly(getNextVertex(tab, i + 1) + '->e' + isInIf));
         }

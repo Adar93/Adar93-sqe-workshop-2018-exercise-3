@@ -3,7 +3,7 @@ import $ from 'jquery';
 import {tableCreation,addEdges} from './code-analyzer';
 import * as flowchart from 'flowchart.js';
 
-/*function updateTable(tab){
+function updateTable(tab){
     let ans = '';
     for (let i = 0; i<tab.length; i++) {
         if (tab[i].Code != null) {
@@ -13,7 +13,7 @@ import * as flowchart from 'flowchart.js';
         }
     }
     return ans;
-}*/
+}
 
 function updateTable2(tab){
     let ans = '';
@@ -33,9 +33,9 @@ $(document).ready(function () {
         let tab = addEdges(tableCreation(codeToParse, inputVector));
         //$('#codePlaceholder').val(JSON.stringify(parseCode(codeToParse), null, 2));
         //$('#inputVector').val(JSON.stringify(parseCode(inputVector), null, 2));
-        //let HTMLtab = document.getElementById('presentation');
-        //HTMLtab.innerHTML = '';
-        //HTMLtab.innerHTML = updateTable(tab);
+        let HTMLtab = document.getElementById('presentation');
+        HTMLtab.innerHTML = '';
+        HTMLtab.innerHTML = updateTable(tab);
         let fc = flowchart.parse(updateTable2(tab));
         fc.drawSVG('presentation', {
             'yes-text': 'T',
